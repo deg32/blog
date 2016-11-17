@@ -1,0 +1,50 @@
+{% extends "blog_app/base.html" %}
+
+ {% block content %}
+
+<ul>
+
+<p>  {{post.id}} </p>
+
+     <!-- <p>  {{post.post_title}} </p>
+
+   <p>  {{post.post_text}} </p> -->
+
+
+    {% for comment in comments %}
+
+
+       <li>
+
+           <p>{{comment.comment_text }}</p>
+
+           {% if comment.comment_author == request.user %}
+
+           <p> <a href="{% url 'comment_delete' comment.id %}"> Удалить  </a> </p>
+
+
+           {% endif%}
+
+       </li>
+
+
+     {% empty %}
+
+    <p> No comments yet </p>
+
+    {% endfor %}
+
+  <form action=" {% url 'comment_create' %}" method="POST" >
+
+        {% csrf_token%}
+
+        {{ form.as_p }}
+
+    <input type="submit" value="OK">
+
+    </form>
+
+
+
+</ul>
+ {% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "blog_app/base.html" %}
+
+{% block title%}
+
+        {{post.post_title}}
+
+{% endblock title%}
+
+ {% block content %}
+
+         <p> {{post.post_title}}  </p>
+
+         <p>{{post.post_text }}</p>
+
+
+
+ <u> <p>Последние комментарии:</p></u>
+
+{% for comment in comments %}
+
+
+    <p>{{comment.comment_text}}</p>
+
+    <p>{{comment.comment_date}}</p>
+
+   <p>{{comment.comment_author}}</p>
+
+
+{% empty%}
+
+<p> No comments</p>
+
+{% endfor%}
+
+
+
+
+
+
+
+
+        <p><a href="{% url 'comments_list' post.id   %}"> Читать все комментарии </a></p>
+
+
+
+
+
+ {% endblock content %}

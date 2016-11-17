@@ -1,0 +1,22 @@
+{% extends "blog_app/base.html" %}
+
+ {% block content %}
+
+<ul>
+
+    {% for post in posts %}
+
+
+       <li>
+
+           <p> {{post.post_title}} </p>
+
+            <p>{{post.post_text }}</p>
+
+            <p><a href="{% url 'post_detail' post.id  %}"> Подробнее.. </a> </p>
+
+       </li>
+    {% endfor %}
+
+</ul>
+ {% endblock content %}

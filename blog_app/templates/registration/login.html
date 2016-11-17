@@ -1,0 +1,28 @@
+{% extends "blog_app/base.html" %}
+
+{% block title%}
+
+
+{% endblock title%}
+
+
+ {% block content %}
+
+
+
+
+
+    <form action="" method="POST" >
+
+        <input type="hidden"  name="next" value={{next}} >
+
+         {% csrf_token%}
+
+        {{ form.as_p }}
+
+    <input type="submit" value="OK">
+
+    </form>
+
+
+ {% endblock content %}

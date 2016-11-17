@@ -1,0 +1,32 @@
+{% extends "blog_app/base.html" %}
+
+{% block title%}
+
+
+{% endblock title%}
+
+
+ {% block content %}
+
+
+
+    <form action="{% url 'subscribe_create' %} " method="POST" >
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+    <input type="submit" value="Подписаться">
+
+
+
+    </form>
+
+
+
+
+
+
+
+ {% endblock content %}
+
