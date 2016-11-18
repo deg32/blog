@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserCreateForm
 from django.contrib import messages
 from django.urls import reverse
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -17,6 +18,10 @@ def registration_view(request):
             form.save()
 
             #messages.success(request,'Пользователь создан')
+
+            user =authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+
+            login(request, user)
 
             return redirect (reverse('post_list'))
 

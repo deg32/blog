@@ -18,7 +18,7 @@
 
 {% else %}
 
- <p> <a href="{% url 'login'%}?next= {{request.path}}"> Зарегистрироваться </a> </p>
+ <p> <a href="{% url 'registration_view' %}"> Зарегистрироваться </a> </p>
 
  <p> <a href="{% url 'login'%}?next= {{request.path}}"> Войти </a> </p>
 

@@ -102,7 +102,7 @@ class CommentDelete(DeleteView):
 
         return self.post(self,request,*args, *kwargs)
 
-
+#TODO
 class CreateSubscribe(CreateView):
 
     template_name = 'blog_app/subscribe_create_form.html'
