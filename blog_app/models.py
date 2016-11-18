@@ -33,7 +33,7 @@ class Comment(models.Model):
 
 class Subscribe(models.Model):
 
-    subscribe_user = models.ForeignKey(User, default='')
+    subscribe_user = models.OneToOneField(User, default='')
 
     email = models.EmailField(unique=True)
 

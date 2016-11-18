@@ -17,11 +17,11 @@ def registration_view(request):
 
             form.save()
 
-            #messages.success(request,'Пользователь создан')
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
 
-            user =authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            if user is not None:
 
-            login(request, user)
+                login(request, user)
 
             return redirect (reverse('post_list'))
 
@@ -30,7 +30,7 @@ def registration_view(request):
 
             context = {'form': form}
 
-            messages.error(request, 'Ошибка')
+            #messages.error(request, 'Ошибка')
 
     else:
 
@@ -41,6 +41,4 @@ def registration_view(request):
     return render(request, 'registration/registration.html', context)
 
 
-def subscription(request):
 
-    pass

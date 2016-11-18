@@ -10,11 +10,19 @@
 
 
 
+
+
     <form action="{% url 'subscribe_create' %} " method="POST" >
 
         {% csrf_token %}
 
+         <input type="input" id="subscribe_user" value="{{user}}">
+
         {{ form.as_p }}
+
+      {{ form['subscribe_user' ] }}
+
+
 
     <input type="submit" value="Подписаться">
 

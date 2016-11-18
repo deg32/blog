@@ -103,31 +103,37 @@ class CommentDelete(DeleteView):
         return self.post(self,request,*args, *kwargs)
 
 #TODO
-class CreateSubscribe(CreateView):
+class CreateSubscribe(CreateView, ):
 
     template_name = 'blog_app/subscribe_create_form.html'
 
-    def post(self, request, *args, **kwargs):
+   # form_class = CreateSubscribeForm
 
-        form = CreateSubscribeForm(request.POST)
+    model = Subscribe
 
-        if form.is_valid():
+    fields = ['email']
 
-            form.save()
+   # def post(self, request, *args, **kwargs):
 
-            return redirect(reverse('post_list'))
+     #   form = CreateSubscribeForm(request.POST)
 
-        else:
+    #    if form.is_valid():
 
-            return redirect(request.path)
+    #        form.save()
 
-    def get_context_data(self, **kwargs):
+     #       return redirect(reverse('post_list'))
 
-        context = super(CreateView,self).get_context_data(**kwargs)
+     #   else:
 
-        context['form']= CreateSubscribeForm(initial={'subscribe_user': self.request.user.id})
+     #       return redirect(request.path)
 
-        return context
+   # def get_context_data(self, **kwargs):
+
+    #    context = super(CreateView,self).get_context_data(**kwargs)
+
+    #    context['form']= CreateSubscribeForm(initial={'subscribe_user': self.request.user.id})
+
+     #   return context
 
 
 
