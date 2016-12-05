@@ -20,7 +20,7 @@
 
            {% if comment.comment_author == request.user %}
 
-           <p> <a href="{% url 'comment_delete' comment.id %}"> Удалить  </a> </p>
+           <p> <a href="{% url 'comment_delete' comment.id %}"> Удалить свой комментарий  </a> </p>
 
 
            {% endif%}
@@ -47,4 +47,5 @@
 
 
 </ul>
+
  {% endblock content %}

@@ -5,11 +5,13 @@ from django.views.generic.edit import DeleteView, CreateView
 from .models import Post, Comment, Subscribe
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from .forms import CommentCreateForm, CreateSubscribeForm
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from .tasks import comment_add_log, send_mail_to_subscribers
 
 # Create your views here.
 
@@ -19,6 +21,16 @@ class PostsList(ListView):
     model = Post
 
     context_object_name = 'posts'
+
+    def get_context_data(self, **kwargs):
+
+        context = super(PostsList,self).get_context_data(**kwargs)
+
+        if Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
+
+            context['subscribe_id'] = (Subscribe.objects.get(subscribe_user=self.request.user.id)).id
+
+        return context
 
 
 class PostDetail(LoginRequiredMixin,DetailView):
@@ -83,6 +95,14 @@ class CommentCreate(View):
 
             form.save()
 
+#блок задач celery
+
+            comment_add_log.delay(str(request.user))
+
+            send_mail_to_subscribers.delay(form.cleaned_data['comment_text'])
+
+#конец блока задач celery
+
             return redirect(reverse('comments_list', args=[pk]))
 
         raise Http404
@@ -102,41 +122,55 @@ class CommentDelete(DeleteView):
 
         return self.post(self,request,*args, *kwargs)
 
+
 #TODO
-class CreateSubscribe(CreateView, ):
+class CreateSubscribe(CreateView ):
 
     template_name = 'blog_app/subscribe_create_form.html'
 
-   # form_class = CreateSubscribeForm
+    form_class = CreateSubscribeForm
+
+   #success_url = reverse_lazy('subscribe_create')
+
+    def get_initial(self):
+
+        return {'subscribe_user': self.request.user.id}
+
+    def get_success_url(self):
+
+        return reverse_lazy('post_list')
+
+    #def get_context_data(self, **kwargs):
+
+#        if not Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
+#
+ #           context = super(CreateView,self).get_context_data(**kwargs)
+#
+ #           return context
+
+#        else:
+
+ #           pass
+
+    def get(self,request):
+
+        if Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
+
+            return HttpResponse('<p><h3>Вы уже подписаны</h3>')#redirect('post_list')
+
+        else:
+
+            return super(CreateView,self).get(request)
+
+
+class DeleteSubscribe(DeleteView):
 
     model = Subscribe
 
-    fields = ['email']
+    success_url = reverse_lazy('post_list')
 
-   # def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
 
-     #   form = CreateSubscribeForm(request.POST)
-
-    #    if form.is_valid():
-
-    #        form.save()
-
-     #       return redirect(reverse('post_list'))
-
-     #   else:
-
-     #       return redirect(request.path)
-
-   # def get_context_data(self, **kwargs):
-
-    #    context = super(CreateView,self).get_context_data(**kwargs)
-
-    #    context['form']= CreateSubscribeForm(initial={'subscribe_user': self.request.user.id})
-
-     #   return context
-
-
-
-
+        return self.post(self, request, *args, *kwargs)
 
 

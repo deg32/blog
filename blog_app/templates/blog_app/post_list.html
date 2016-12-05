@@ -2,6 +2,20 @@
 
  {% block content %}
 
+{% if user.is_authenticated %}
+
+    {% if not subscribe_id %}
+
+        <p> <a href="{% url 'subscribe_create' %}"> Подписаться на новые сообщения </a> </p>
+
+    {% else %}
+
+        <p> <a href="{% url 'subscribe_delete' subscribe_id %}"> Отписаться от новых сообщений</a> </p>
+
+    {% endif %}
+
+{% endif %}
+
 <ul>
 
     {% for post in posts %}

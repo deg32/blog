@@ -113,11 +113,15 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+#TIME_ZONE ='Asia/Krasnoyarsk'
+
+USE_TZ = True
+
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -125,4 +129,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#Настройка почты
 
+#EMAIL_BACKEND=
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#EMAIL_HOST = 'localhost'
+
+#EMAIL_PORT = 1025
+
+#EMAIL_HOST_USER=
+
+#EMAIL_HOST_PASSWORD=

@@ -41,7 +41,7 @@ class Subscribe(models.Model):
 
         #return User.objects.get(id=self.subscribe_user)
 
-        return self.email
+        return str(self.id) +"_"+self.email+"_"+str(self.subscribe_user.id)
 
 
 

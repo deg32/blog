@@ -23,11 +23,9 @@ class CreateSubscribeForm(ModelForm):
 
         model = Subscribe
 
-        #fields = '__all__'
+        fields = '__all__'
 
-        fields = ['email']
-
-        #widgets = {'subscribe_user': HiddenInput()}
+        widgets = {'subscribe_user': HiddenInput()}
 
         labels = {'email': 'Ваш адрес'}
 

@@ -23,9 +23,9 @@
 
     <p>{{comment.comment_text}}</p>
 
-    <p>{{comment.comment_date}}</p>
+    <p>Автор: {{comment.comment_author}} Дата публикации: {{comment.comment_date}}</p>
 
-   <p>{{comment.comment_author}}</p>
+   <p></p>
 
 
 {% empty%}
@@ -36,15 +36,7 @@
 
 
 
-
-
-
-
-
         <p><a href="{% url 'comments_list' post.id   %}"> Читать все комментарии </a></p>
-
-
-
 
 
  {% endblock content %}

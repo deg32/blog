@@ -19,18 +19,15 @@ def registration_view(request):
 
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
 
-            if user is not None:
+            if user:
 
                 login(request, user)
 
-            return redirect (reverse('post_list'))
-
+            return redirect(reverse('post_list'))
 
         else:
 
             context = {'form': form}
-
-            #messages.error(request, 'Ошибка')
 
     else:
 
