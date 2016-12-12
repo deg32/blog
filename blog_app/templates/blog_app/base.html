@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,27 +9,83 @@
 
 
 
-{% if user.is_authenticated %}
-        Здравствуй,{{user}}
 
 
- <p> <a href="{% url 'logout' %}"> Выйти </a> </p>
+<div class="container-fluid">
+
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+
+        {% if user.is_authenticated %}
+
+             <div class="col-md-4 col-md-offset-0">
+
+                 Ну здравствуй мой дорогой друг, {{user}}
+
+             </div>
+
+             <div class="col-md-4">
+
+                 <p> Если не можешь это читать, то можешь  <a href="{% url 'logout' %}">  выйти </a> </p>
+
+             </div>
 
 
-
-{% else %}
-
- <p> <a href="{% url 'registration_view' %}"> Зарегистрироваться </a> </p>
-
- <p> <a href="{% url 'login'%}?next= {{request.path}}"> Войти </a> </p>
+             <div class="col-md-4">
 
 
-{% endif %}
+                 {% if not subscribe_id %}
+
+                     <p> Или <a href="{% url 'subscribe_create' %}"> подписаться на новые сообщения </a> </p>
+
+                 {% else %}
+
+
+                      <p> Или <a href="{% url 'subscribe_delete' subscribe_id %}"> отписаться от новых сообщений</a> </p>
+
+                 {% endif %}
+
+             </div>
+
+
+        {% else %}
+
+             <div class="col-md-2">
+
+                 <p> <a href="{% url 'registration_view' %}"> Зарегистрироваться </a> </p>
+
+             </div>
+
+             <div class="col-md-2 ">
+
+                 <p> <a href="{% url 'login'%}?next= {{request.path}}"> Войти </a> </p>
+
+             </div>
+
+        {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+ <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/bootstrap.min.css'%}"/>
+ <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/bootstrap-theme.min.css'%}"/>
+ <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/bootstrap-theme.min.css'%}" />
+
+
 
 
 {% block content%}
 
 {% endblock content%}
+
+
 
 
 </body>

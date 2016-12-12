@@ -2,44 +2,46 @@
 
  {% block content %}
 
-{% if user.is_authenticated %}
+<div class="container-fluid">
 
-    {% if not subscribe_id %}
 
-        <p> <a href="{% url 'subscribe_create' %}"> Подписаться на новые сообщения </a> </p>
 
-    {% else %}
-
-        <p> <a href="{% url 'subscribe_delete' subscribe_id %}"> Отписаться от новых сообщений</a> </p>
-
-    {% endif %}
-
-{% endif %}
-
-<ul>
+<!--<ul> -->
 
     {% for post in posts %}
 
+        <div class="row">
 
-       <li>
+            <div class="col-md-10 col-md-offset-1">
 
-           <p> {{post.post_title}} </p>
-
-            <p>{{post.post_text }}</p>
-
-
-            {% if post.post_image%}
-
-                 <p> <img src="{{ post.post_image.url}} ">  </p>
+            <!--    <li>-->
 
 
+                    <p>{{post.post_title}} </p>
 
-            {%endif%}
+                    <p>{{post.post_text }}</p>
 
-            <p><a href="{% url 'post_detail' post.id  %}"> Подробнее.. </a> </p>
+                    <p></p>
 
-       </li>
+                    {% if post.post_image%}
+
+                         <p> <img src="{{ post.post_image.url}} ">  </p>
+
+                    {%endif%}
+
+
+
+                        <p><a href="{% url 'post_detail' post.id  %}"> Подробнее.. </a> </p>
+               <!--   </li>-->
+
+            </div>
+
+        </div>
+
     {% endfor %}
 
-</ul>
+<!-- </ul>-->
+
+</div>
+
  {% endblock content %}
