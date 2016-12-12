@@ -11,5 +11,5 @@ class TestModels(TestCase):
         post.save()
         post = Post(post_title=str(), post_text =str())
         post.save()
-        post = Post(post_title ='5555',post_text = '77777777777777777777777777777777777777777')
+        post = Post(post_title ='5556',post_text = '77777777777777777777777777777777777777777')
         post.save()

@@ -27,6 +27,15 @@
 
             <p>{{post.post_text }}</p>
 
+
+            {% if post.post_image%}
+
+                 <p> <img src="{{ post.post_image.url}} ">  </p>
+
+
+
+            {%endif%}
+
             <p><a href="{% url 'post_detail' post.id  %}"> Подробнее.. </a> </p>
 
        </li>

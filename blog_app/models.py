@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
+#запись в блоге
 class Post(models.Model):
 
     post_title = models.CharField(max_length=30,unique=True)
@@ -17,9 +17,10 @@ class Post(models.Model):
 
     def __str__(self):
 
-        return self.post_title
+        return 'id: '+str(self.id)+' text: '+self.post_title
 
 
+#комментарий к посту
 class Comment(models.Model):
 
     comment_post = models.ForeignKey(Post, related_name='comments')
@@ -30,7 +31,12 @@ class Comment(models.Model):
 
     comment_author = models.ForeignKey(User, related_name='comments', default='')
 
+    def __str__(self):
 
+        return self.comment_text[:50]
+
+
+#подписка на новые сообщения
 class Subscribe(models.Model):
 
     subscribe_user = models.OneToOneField(User, default='')

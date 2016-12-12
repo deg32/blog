@@ -15,7 +15,7 @@ from .tasks import comment_add_log, send_mail_to_subscribers
 
 # Create your views here.
 
-
+#список постов
 class PostsList(ListView):
 
     model = Post
@@ -33,6 +33,7 @@ class PostsList(ListView):
         return context
 
 
+#вывод полного текста поста с последними комментариями
 class PostDetail(LoginRequiredMixin,DetailView):
 
     login_url = reverse_lazy('login')
@@ -56,6 +57,7 @@ class PostDetail(LoginRequiredMixin,DetailView):
         return context
 
 
+#вывод всех комментариев к посту
 class CommentsList(ListView):
 
     model = Comment
@@ -83,6 +85,7 @@ class CommentsList(ListView):
         return context
 
 
+#добавление комментария к посту
 class CommentCreate(View):
 
    def post(self, request):
@@ -108,6 +111,7 @@ class CommentCreate(View):
         raise Http404
 
 
+#удаление комментария
 class CommentDelete(DeleteView):
 
     model = Comment
@@ -123,6 +127,7 @@ class CommentDelete(DeleteView):
         return self.post(self,request,*args, *kwargs)
 
 
+#создание подписки
 #TODO
 class CreateSubscribe(CreateView ):
 
@@ -163,6 +168,7 @@ class CreateSubscribe(CreateView ):
             return super(CreateView,self).get(request)
 
 
+#удаление подписки
 class DeleteSubscribe(DeleteView):
 
     model = Subscribe

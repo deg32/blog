@@ -26,9 +26,9 @@ SECRET_KEY = 'p3a@l@5yykm2v8=rbdpqa_a4xvz@eo=w_goixtt=u5rknnn(7t'
 
 DEBUG = True
 
-#DEBUG = False
+# DEBUG = False
 
-#ALLOWED_HOSTS = ['127.0.0.1']
+# ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'registration',
     'api',
     'django.contrib.admin',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,16 @@ USE_I18N = True
 USE_L10N = True
 
 
+STATIC_URL = '/static/'
 
+
+MEDIA_ROOT = 'media/'
+
+
+MEDIA_URL = 'http://127.0.0.1:8000/media/'
+
+
+#LOGIN_URL = '/auth/login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -133,6 +143,7 @@ STATIC_URL = '/static/'
 
 #EMAIL_BACKEND=
 
+# вывод посылаемых писем на консоль
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 #EMAIL_HOST = 'localhost'

@@ -4,6 +4,7 @@ from django.forms.widgets import HiddenInput
 from django.forms import ValidationError
 
 
+# форма создания комментария
 class CommentCreateForm(ModelForm):
 
     class Meta:
@@ -17,6 +18,7 @@ class CommentCreateForm(ModelForm):
         labels = {'comment_text': 'Ваш комментарий'}
 
 
+# форма создания подписки
 class CreateSubscribeForm(ModelForm):
 
     class Meta:
