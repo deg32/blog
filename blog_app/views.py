@@ -94,7 +94,7 @@ class CommentCreate(View):
 
         if form.is_valid():
 
-            pk = form.cleaned_data.get('comment_post')
+            pk = form.cleaned_data.get('comment_post').id  #номер поста, по которому выбираются комментарии
 
             form.save()
 
@@ -120,11 +120,12 @@ class CommentDelete(DeleteView):
 
         comment = Comment.objects.get(id=self.kwargs.get('pk'))
 
-        return reverse_lazy('comments_list', args=[comment.comment_post])
+        return reverse_lazy('comments_list', args=[comment.comment_post.id])
 
     def get(self,request,*args, **kwargs):
 
         return self.post(self,request,*args, *kwargs)
+
 
 
 #создание подписки

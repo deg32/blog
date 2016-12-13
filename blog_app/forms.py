@@ -15,7 +15,7 @@ class CommentCreateForm(ModelForm):
 
         widgets = {'comment_post': HiddenInput(), 'comment_author': HiddenInput()}
 
-        labels = {'comment_text': 'Ваш комментарий'}
+        labels = {'comment_text': ''}
 
 
 # форма создания подписки

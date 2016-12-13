@@ -2,6 +2,8 @@
 
  {% block content %}
 
+
+
 <div class="container-fluid">
 
 
@@ -10,18 +12,17 @@
 
     {% for post in posts %}
 
-        <div class="row">
 
-            <div class="col-md-10 col-md-offset-1">
 
             <!--    <li>-->
 
+                    <h2 class="blog-post-title">{{post.post_title}}</h2>
 
-                    <p>{{post.post_title}} </p>
 
-                    <p>{{post.post_text }}</p>
 
-                    <p></p>
+                    <p class="blog-post-list-text">{{post.post_text|truncatewords:40}}</p>
+
+
 
                     {% if post.post_image%}
 
@@ -34,9 +35,6 @@
                         <p><a href="{% url 'post_detail' post.id  %}"> Подробнее.. </a> </p>
                <!--   </li>-->
 
-            </div>
-
-        </div>
 
     {% endfor %}
 

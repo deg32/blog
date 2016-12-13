@@ -10,18 +10,15 @@
 
 <div class="container-fluid">
 
-     <div class="row">
-
-           <div class="col-md-10 col-md-offset-1">
 
 
-                         <p> {{post.post_title}}  </p>
+               <h2 class="blog-post-title">{{post.post_title}}</h2>
 
-                         <p>{{post.post_text }}</p>
+                        <p class="blog-post-detail-text">{{post.post_text }}</p>
 
 
 
-                 <u> <p>Последние комментарии:</p></u>
+                 <u>  <h4>Отзывы и предложения:</h4></u>
 
                 {% for comment in comments %}
 
@@ -35,20 +32,21 @@
 
                 {% empty%}
 
-                <p> No comments</p>
+                <p> Нет ни одного-одинешенького отзыва или предложения :(</p>
+
+                   <p><a href="{% url 'comments_list' post.id   %}"> Но ты можешь его сделать!!! </a></p>
+
 
                 {% endfor%}
 
+                 {% if comments%}
+
+                        <p><a href="{% url 'comments_list' post.id   %}"> Читать все отзывы и предложения </a></p>
+
+                {% endif %}
 
 
-                        <p><a href="{% url 'comments_list' post.id   %}"> Читать все комментарии </a></p>
 
-
-
-
-          </div>
-
-    </div>
 
 </div>
 

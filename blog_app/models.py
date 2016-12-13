@@ -15,9 +15,9 @@ class Post(models.Model):
 
     post_image = models.ImageField(blank=True, upload_to='blog_app/post_images', default='')
 
-    def __str__(self):
+    #def __str__(self):
 
-        return 'id: '+str(self.id)+' text: '+self.post_title
+     #  return 'id: '+str(self.id)+' text: '+self.post_title
 
 
 #комментарий к посту

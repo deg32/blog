@@ -30,13 +30,15 @@
 
      {% empty %}
 
-    <p> No comments yet </p>
+    <p> Будь первым, мужик! </p>
 
     {% endfor %}
 
   <form action=" {% url 'comment_create' %}" method="POST" >
 
         {% csrf_token%}
+
+        <label for="id_comment_text">Пиши сюда:</label>
 
         {{ form.as_p }}
 

@@ -8,43 +8,40 @@
 <body>
 
 
-
-
-
 <div class="container-fluid">
 
     <div class="row">
 
     </div>
 
-    <div class="row">
+    <div class="row blog-nav">
 
         {% if user.is_authenticated %}
 
-             <div class="col-md-4 col-md-offset-0">
+             <div class="col-md-4 col-md-offset-1 ">
 
-                 Ну здравствуй мой дорогой друг, {{user}}
+                <p class="text-left"> Ну здравствуй мой дорогой друг, {{user}}</p>
 
              </div>
 
              <div class="col-md-4">
 
-                 <p> Если не можешь это читать, то можешь  <a href="{% url 'logout' %}">  выйти </a> </p>
+                 <p class="text-left "> Если не можешь это читать, то можешь  <a href="{% url 'logout' %}">  выйти </a> </p>
 
              </div>
 
 
-             <div class="col-md-4">
+             <div class="col-md-3">
 
 
                  {% if not subscribe_id %}
 
-                     <p> Или <a href="{% url 'subscribe_create' %}"> подписаться на новые сообщения </a> </p>
+                     <p class="text-left"> или <a href="{% url 'subscribe_create' %}"> подписаться </a> </p>
 
                  {% else %}
 
 
-                      <p> Или <a href="{% url 'subscribe_delete' subscribe_id %}"> отписаться от новых сообщений</a> </p>
+                      <p class="text-left"> или <a href="{% url 'subscribe_delete' subscribe_id %}"> отписаться </a> </p>
 
                  {% endif %}
 
@@ -53,15 +50,15 @@
 
         {% else %}
 
-             <div class="col-md-2">
+             <div class="col-md-2 col-md-offset-1">
 
-                 <p> <a href="{% url 'registration_view' %}"> Зарегистрироваться </a> </p>
+                 <p class="text-left"> <a href="{% url 'registration_view' %}"> Зарегистрироваться </a> </p>
 
              </div>
 
              <div class="col-md-2 ">
 
-                 <p> <a href="{% url 'login'%}?next= {{request.path}}"> Войти </a> </p>
+                 <p class="text-left"> <a href="{% url 'login'%}?next= {{request.path}}"> Войти </a> </p>
 
              </div>
 
@@ -70,23 +67,40 @@
         </div>
 
     </div>
-
 </div>
 
 
+   <p></p>
+   <p></p>
+
+
+ <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/blog.css'%}"/>
+
  <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/bootstrap.min.css'%}"/>
+
  <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/bootstrap-theme.min.css'%}"/>
+
  <link rel="stylesheet" type="text/css" href="{% static 'blog_app/css/bootstrap-theme.min.css'%}" />
 
 
 
+ <div class="row">
 
-{% block content%}
+     <div class="col-md-8 col-md-offset-1">
 
-{% endblock content%}
+            {% block content%}
+
+            {% endblock content%}
 
 
+     </div>
 
+     <div class="col-md-3 col-md-offset-0 right-sidebar">
+
+
+     </div>
+
+ </div>
 
 </body>
 </html>

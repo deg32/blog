@@ -1,0 +1,48 @@
+.right-sidebar{
+
+    background-color: lightgray;
+    height: 100vh; 
+
+}
+
+
+
+
+.blog-post-title {
+
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-size: 30px;
+}
+
+.blog-post-list-text{
+
+    font-size: 16px;
+    margin-bottom: 15px;
+
+}
+
+.blog-post-detail-text{
+
+    font-size: 16px;
+    margin-bottom: 25px;
+
+}
+
+.blog-nav{
+
+    font-size: 16px;
+    background-color: lightgray;
+
+}
+
+.comment-form{
+
+
+
+}
+
+.label-comment-form{
+
+
+}
