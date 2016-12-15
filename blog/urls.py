@@ -15,34 +15,27 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from blog import settings
 from django.views.static import serve
 
-#import blog_app.urls
+from blog import settings
+
+# import blog_app.urls
 
 
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'^blog/', include('blog_app.urls')), # blog_app
+    url(r'^blog/', include('blog_app.urls')),  # blog_app
 
     url('^registration/', include('django.contrib.auth.urls')),
 
     url('^registration/', include('registration.urls')),
 
-    url('^api/', include('api.urls')),#rest_ framework
+    url('^api/', include('api.urls')),  # rest_ framework
 
-    # MEDIA
-    #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    ##url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
+    ]
 
-]
 
 if settings.DEBUG:
-
-    urlpatterns.append(url(r'^media/(?P<path>.*)$',serve, {'document_root': settings.MEDIA_ROOT}))
-    #urlpatterns.append(url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}))
-
-
-#urlpatterns.append()
+    urlpatterns.append(url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}))

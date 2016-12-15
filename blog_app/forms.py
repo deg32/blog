@@ -1,14 +1,13 @@
 from django.forms import ModelForm
-from .models import Comment, Post, Subscribe
 from django.forms.widgets import HiddenInput
-from django.forms import ValidationError
+
+from .models import Comment, Subscribe
 
 
-# форма создания комментария
 class CommentCreateForm(ModelForm):
+    """форма создания комментария к посту, используется в class CommentsList в файле blog_app/views.py"""
 
     class Meta:
-
         model = Comment
 
         fields = '__all__'
@@ -18,11 +17,10 @@ class CommentCreateForm(ModelForm):
         labels = {'comment_text': ''}
 
 
-# форма создания подписки
 class CreateSubscribeForm(ModelForm):
+    """ форма создания подписки на новые комментарии"""
 
     class Meta:
-
         model = Subscribe
 
         fields = '__all__'
@@ -30,8 +28,3 @@ class CreateSubscribeForm(ModelForm):
         widgets = {'subscribe_user': HiddenInput()}
 
         labels = {'email': 'Ваш адрес'}
-
-
-
-
-

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from .views import PostListView, CommentListView, PostCreateView, CommentCreateView, PostDeleteView, CommentDeleteView
 
 urlpatterns = [
@@ -20,6 +21,5 @@ urlpatterns = [
 
     # удаление комментария по номеру
     url(r'comment/delete/(?P<pk>\d+)/', CommentDeleteView.as_view(), name='rest_comment_delete'),
-
 
 ]

@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from .views import PostsList, PostDetail,  CommentsList, CommentCreate, CommentDelete, CreateSubscribe, DeleteSubscribe
-import django.contrib.auth.views as auth_views
 
+from .views import PostsList, PostDetail, CommentsList, CommentCreate, CommentDelete, CreateSubscribe, DeleteSubscribe
 
 urlpatterns = [
 
@@ -19,5 +18,5 @@ urlpatterns = [
 
     url(r'comment/delete/(?P<pk>\d+)/', CommentDelete.as_view(), name='comment_delete'),
 
-    #url(r'registration/login/', auth_views.login, name='login'),
+    # url(r'registration/login/', auth_views.login, name='login'),
 ]

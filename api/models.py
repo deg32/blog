@@ -1,12 +1,10 @@
-
 from rest_framework import serializers
+
 from blog_app.models import Post, Comment
-
-# Create your models here.
-from rest_framework import serializers
 
 
 class PostSerializer(serializers.ModelSerializer):
+    """Cериализатор постов"""
 
     class Meta:
 
@@ -16,6 +14,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    """Сериализатор комментариев"""
 
     class Meta:
 

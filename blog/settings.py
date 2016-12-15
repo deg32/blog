@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -76,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -86,7 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -106,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -114,7 +110,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-#TIME_ZONE ='Asia/Krasnoyarsk'
+# TIME_ZONE ='Asia/Krasnoyarsk'
 
 USE_TZ = True
 
@@ -122,34 +118,30 @@ USE_I18N = True
 
 USE_L10N = True
 
-
 STATIC_URL = '/static/'
-
 
 MEDIA_ROOT = 'media/'
 
-
 MEDIA_URL = 'http://127.0.0.1:8000/media/'
 
-
-#LOGIN_URL = '/auth/login'
+# LOGIN_URL = '/auth/login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
 
-#Настройка почты
+# Настройка почты
 
-#EMAIL_BACKEND=
+# EMAIL_BACKEND=
 
 # вывод посылаемых писем на консоль
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-#EMAIL_HOST = 'localhost'
+# EMAIL_HOST = 'localhost'
 
-#EMAIL_PORT = 1025
+# EMAIL_PORT = 1025
 
-#EMAIL_HOST_USER=
+# EMAIL_HOST_USER=
 
-#EMAIL_HOST_PASSWORD=
+# EMAIL_HOST_PASSWORD=

@@ -1,40 +1,36 @@
-from django.shortcuts import render, redirect
-from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, CreateView
-from .models import Post, Comment, Subscribe
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
-from django.http import Http404, HttpResponse
+from django.views.generic.list import ListView
+
 from .forms import CommentCreateForm, CreateSubscribeForm
-from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
+from .models import Post, Comment, Subscribe
 from .tasks import comment_add_log, send_mail_to_subscribers
 
-# Create your views here.
 
-#список постов
 class PostsList(ListView):
+    """Вывод всех постов"""
 
     model = Post
 
     context_object_name = 'posts'
 
     def get_context_data(self, **kwargs):
-
-        context = super(PostsList,self).get_context_data(**kwargs)
+        context = super(PostsList, self).get_context_data(**kwargs)
 
         if Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
-
             context['subscribe_id'] = (Subscribe.objects.get(subscribe_user=self.request.user.id)).id
 
         return context
 
 
-#вывод полного текста поста с последними комментариями
-class PostDetail(LoginRequiredMixin,DetailView):
+class PostDetail(LoginRequiredMixin, DetailView):
+    """Вывод полного текста поста с последними  пятью комментариями"""
 
     login_url = reverse_lazy('login')
 
@@ -43,22 +39,20 @@ class PostDetail(LoginRequiredMixin,DetailView):
     context_object_name = 'post'
 
     def get_object(self, queryset=None):
-
         return get_object_or_404(Post, id=self.kwargs.get('pk'))
 
     def get_context_data(self, **kwargs):
-
         comments = Comment.objects.all().order_by('comment_date')[0:5]
 
-        context = super(PostDetail,self).get_context_data (**kwargs)
+        context = super(PostDetail, self).get_context_data(**kwargs)
 
         context['comments'] = comments
 
         return context
 
 
-#вывод всех комментариев к посту
 class CommentsList(ListView):
+    """Вывод всех комментариев к посту"""
 
     model = Comment
 
@@ -78,65 +72,60 @@ class CommentsList(ListView):
 
         pk = self.kwargs.get('pk')
 
-        context = super(CommentsList,self).get_context_data(**kwargs)
+        context = super(CommentsList, self).get_context_data(**kwargs)
 
         context['form'] = CommentCreateForm(initial={'comment_post': pk, 'comment_author': self.request.user})
 
         return context
 
 
-#добавление комментария к посту
 class CommentCreate(View):
+    """Добавление комментария к посту"""
 
-   def post(self, request):
-
+    def post(self, request):
         form = CommentCreateForm(request.POST)
 
         if form.is_valid():
-
-            pk = form.cleaned_data.get('comment_post').id  #номер поста, по которому выбираются комментарии
+            pk = form.cleaned_data.get('comment_post').id  # номер поста, по которому выбираются комментарии
 
             form.save()
 
-#блок задач celery
+            # блок задач celery
 
             comment_add_log.delay(str(request.user))
 
             send_mail_to_subscribers.delay(form.cleaned_data['comment_text'])
 
-#конец блока задач celery
+            # конец блока задач celery
 
             return redirect(reverse('comments_list', args=[pk]))
 
         raise Http404
 
 
-#удаление комментария
 class CommentDelete(DeleteView):
+    """Удаление комментария"""
 
     model = Comment
 
     def get_success_url(self):
-
         comment = Comment.objects.get(id=self.kwargs.get('pk'))
 
         return reverse_lazy('comments_list', args=[comment.comment_post.id])
 
-    def get(self,request,*args, **kwargs):
-
-        return self.post(self,request,*args, *kwargs)
-
+    def get(self, request, *args, **kwargs):
+        return self.post(self, request, *args, *kwargs)
 
 
-#создание подписки
-#TODO
-class CreateSubscribe(CreateView ):
+# TODO
+class CreateSubscribe(CreateView):
+    """Создание подписки"""
 
     template_name = 'blog_app/subscribe_create_form.html'
 
     form_class = CreateSubscribeForm
 
-   #success_url = reverse_lazy('subscribe_create')
+    # success_url = reverse_lazy('subscribe_create')
 
     def get_initial(self):
 
@@ -146,38 +135,35 @@ class CreateSubscribe(CreateView ):
 
         return reverse_lazy('post_list')
 
-    #def get_context_data(self, **kwargs):
+        # def get_context_data(self, **kwargs):
 
-#        if not Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
-#
- #           context = super(CreateView,self).get_context_data(**kwargs)
-#
- #           return context
+    #        if not Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
+    #
+    #           context = super(CreateView,self).get_context_data(**kwargs)
+    #
+    #           return context
 
-#        else:
+    #        else:
 
- #           pass
+    #           pass
 
-    def get(self,request):
+    def get(self, request):
 
         if Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
 
-            return HttpResponse('<p><h3>Вы уже подписаны</h3>')#redirect('post_list')
+            return HttpResponse('<p><h3>Вы уже подписаны</h3>')  # redirect('post_list')
 
         else:
 
-            return super(CreateView,self).get(request)
+            return super(CreateView, self).get(request)
 
 
-#удаление подписки
 class DeleteSubscribe(DeleteView):
+    """Удаление подписки"""
 
     model = Subscribe
 
     success_url = reverse_lazy('post_list')
 
     def get(self, request, *args, **kwargs):
-
         return self.post(self, request, *args, *kwargs)
-
-

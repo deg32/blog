@@ -1,54 +1,49 @@
-from django.shortcuts import render
-from .models import PostSerializer, CommentSerializer, Post, Comment
 from rest_framework import generics
 
+from .models import PostSerializer, CommentSerializer, Post, Comment
 
-#Список всех постов
+
 class PostListView(generics.ListAPIView):
+    """ Список всех постов"""
 
     serializer_class = PostSerializer
 
     queryset = Post.objects.all()
 
 
-#Список комментариев к посту по номеру поста
 class CommentListView(generics.ListAPIView):
+    """Список комментариев к посту по номеру поста"""
 
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-
         queryset = Comment.objects.filter(comment_post=self.kwargs['pk'])
 
         return queryset
 
 
-#Добавление поста
 class PostCreateView(generics.CreateAPIView):
+    """Добавление поста"""
 
     serializer_class = PostSerializer
 
 
-#Добавление комментария к посту
 class CommentCreateView(generics.CreateAPIView):
-
+    """Добавление комментария к посту"""
     serializer_class = CommentSerializer
 
 
-#Удаление поста
 class PostDeleteView(generics.DestroyAPIView):
+    """Удаление поста"""
 
     serializer_class = PostSerializer
 
     queryset = Post.objects.all()
 
 
-#Удаление комментария
 class CommentDeleteView(generics.DestroyAPIView):
+    """Удаление комментария"""
 
     serializer_class = CommentSerializer
 
     queryset = Comment.objects.all()
-
-
-

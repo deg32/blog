@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
-from .forms import UserCreateForm
-from django.contrib import messages
-from django.urls import reverse
 from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from .forms import UserCreateForm
+
 
 # Create your views here.
 
@@ -27,7 +28,7 @@ def registration_view(request):
 
         else:
 
-            context = {'form': form}
+            pass
 
     else:
 
