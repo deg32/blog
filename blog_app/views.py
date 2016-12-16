@@ -21,6 +21,8 @@ class PostsList(ListView):
     context_object_name = 'posts'
 
     def get_context_data(self, **kwargs):
+        """Добавляет в контекст id подписки, для вывода в шаблоне ссылки на страницу подписки"""
+
         context = super(PostsList, self).get_context_data(**kwargs)
 
         if Subscribe.objects.filter(subscribe_user=self.request.user.id).exists():
@@ -42,6 +44,8 @@ class PostDetail(LoginRequiredMixin, DetailView):
         return get_object_or_404(Post, id=self.kwargs.get('pk'))
 
     def get_context_data(self, **kwargs):
+        """Добавляет к контексту при выводе поста часть комментариев"""
+
         comments = Comment.objects.all().order_by('comment_date')[0:5]
 
         context = super(PostDetail, self).get_context_data(**kwargs)
@@ -59,7 +63,6 @@ class CommentsList(ListView):
     context_object_name = 'comments'
 
     def get_queryset(self):
-
         if Post.objects.filter(id=self.kwargs.get('pk')).exists():
 
             return Comment.objects.filter(comment_post_id=self.kwargs.get('pk'))
@@ -69,6 +72,7 @@ class CommentsList(ListView):
             raise Http404
 
     def get_context_data(self, **kwargs):
+        """Добавляет в контекст форму для добавления нового комментария"""
 
         pk = self.kwargs.get('pk')
 
@@ -109,6 +113,8 @@ class CommentDelete(DeleteView):
     model = Comment
 
     def get_success_url(self):
+        """Возвращает url с текущим постом"""
+
         comment = Comment.objects.get(id=self.kwargs.get('pk'))
 
         return reverse_lazy('comments_list', args=[comment.comment_post.id])
@@ -167,3 +173,5 @@ class DeleteSubscribe(DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.post(self, request, *args, *kwargs)
+
+
